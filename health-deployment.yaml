@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: my-app-health
+  template:
+    metadata:
+      labels:
+        app: my-app-health
+    spec:   
+      containers:
+        - name: health-app
+          image: ubahhukob/health:latest
+          ports:
+          - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8000
+            initialDelaySeconds: 4
+            timeoutSeconds: 2
+            periodSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/info
+              port: 8000
+            initialDelaySeconds: 4
+            timeoutSeconds: 2
+            periodSeconds: 2
+            successThreshold: 1
