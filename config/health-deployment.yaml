@@ -21,15 +21,15 @@ spec:
             httpGet:
               path: /actuator/health
               port: 8000
-            initialDelaySeconds: 4
-            timeoutSeconds: 2
-            periodSeconds: 2
-            failureThreshold: 3
+            initialDelaySeconds: 25
+            timeoutSeconds: 5
+            periodSeconds: 15
+            failureThreshold: 4
           readinessProbe:
             httpGet:
               path: /actuator/info
               port: 8000
-            initialDelaySeconds: 4
-            timeoutSeconds: 2
-            periodSeconds: 2
-            successThreshold: 1
+            initialDelaySeconds: 25
+            timeoutSeconds: 5
+            periodSeconds: 15
+            successThreshold: 2
