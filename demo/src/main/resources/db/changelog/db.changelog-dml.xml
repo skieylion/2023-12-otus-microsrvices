@@ -1,0 +1,13 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="update_users" author="e.ivannikov">
+        <sql>
+            INSERT INTO USERS (LOGIN, FULL_NAME, EMAIL, PHONE)
+            VALUES ('petrov', 'Петров Петр Петрович', 'petrom@mail.com', '+7 911 111 11 11');
+
+            INSERT INTO USERS (LOGIN, FULL_NAME, EMAIL, PHONE)
+            VALUES ('ivanov', 'Иванов Иван Иванович', 'ivanov@mail.com', '+7 911 111 21 21');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
