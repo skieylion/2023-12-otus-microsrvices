@@ -7,20 +7,125 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
+			"name": "all users",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://arch.homework/health/",
+					"raw": "http://arch.homework/users",
 					"protocol": "http",
 					"host": [
 						"arch",
 						"homework"
 					],
 					"path": [
-						"health",
-						""
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://arch.homework/users/petrov",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"users",
+						"petrov"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"petrov\",\r\n    \"fullName\": \"Петров Петр Михайлович\",\r\n    \"email\": \"petrom@mail.com\",\r\n    \"phone\": \"+7 911 111 11 11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/users/petrov",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"users",
+						"petrov"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"borisov\",\r\n    \"fullName\": \"Борисов Борис Борисович\",\r\n    \"email\": \"borisov@mail.com\",\r\n    \"phone\": \"+7 921 111 11 11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/users",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"borisov\",\r\n    \"fullName\": \"Борисов Борис Борисович\",\r\n    \"email\": \"borisov@mail.com\",\r\n    \"phone\": \"+7 921 111 11 11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/users/ivanov",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"users",
+						"ivanov"
 					]
 				}
 			},
