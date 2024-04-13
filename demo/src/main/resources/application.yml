@@ -28,6 +28,10 @@ management:
       show-details: always
     metrics:
       distribution:
+        percentiles-histogram:
+          http:
+            server:
+              requests: true
         slo:
           http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
       export:

@@ -5,6 +5,6 @@ metadata:
 spec:
   containers:
     - name: health
-      image: ubahhukob/health:latest
+      image: ubahhukob/health:v2
       ports:
       - containerPort: 8000
