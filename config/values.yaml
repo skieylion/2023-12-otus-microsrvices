@@ -1,3 +1,11 @@
+global:
+  postgresql:
+    auth:
+      username: postgres
+      password: NNB75iDxlc
+      database: postgres
 postgresql:
-  password: postgres
-  database: NNB75iDxlc
+  auth:
+    username: postgres
+    password: NNB75iDxlc
+    database: postgres

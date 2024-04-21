@@ -14,7 +14,8 @@ spec:
     spec:   
       containers:
         - name: health-app
-          image: ubahhukob/health:v2
+          image: ubahhukob/health:v4
+          imagePullPolicy: Always
           volumeMounts:
             - name: config-volume
               mountPath: /config
