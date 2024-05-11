@@ -1,0 +1,35 @@
+server:
+  port: 7999
+  servlet:
+    context-path: /auth-service
+spring:
+  application:
+    name: auth
+    datasource:
+      url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+      driverClassName: org.h2.Driver
+      username: sa
+      password: password
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      platform: h2
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      mode: always
+logging:
+  level:
+    org.springframework.jdbc.core:
+      JdbcTemplate: DEBUG
+      StatementCreatorUtils: TRACE
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

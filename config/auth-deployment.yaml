@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-auth
+  template:
+    metadata:
+      labels:
+        app: my-app-auth
+    spec:   
+      containers:
+        - name: auth-app
+          image: ubahhukob/auth:v7
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+          args:
+            - "--spring.config.location=/config/application.yaml"
+          ports:
+          - containerPort: 7999
+          livenessProbe:
+            httpGet:
+              path: /auth-service/actuator/health
+              port: 7999
+            initialDelaySeconds: 120
+            timeoutSeconds: 120
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /auth-service/actuator/info
+              port: 7999
+            initialDelaySeconds: 121
+            timeoutSeconds: 30
+            periodSeconds: 121
+            successThreshold: 1
+            failureThreshold: 2
+      volumes:
+        - name: config-volume
+          configMap:
+            name: auth-app-config

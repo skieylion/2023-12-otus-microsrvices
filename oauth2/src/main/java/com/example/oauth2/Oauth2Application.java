@@ -1,15 +1,13 @@
-package com.example.demo;
+package com.example.oauth2;
 
-import com.example.demo.service.JsonService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class Oauth2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args).getBean(JsonService.class).run();
+        SpringApplication.run(Oauth2Application.class, args);
     }
 
 }
-
