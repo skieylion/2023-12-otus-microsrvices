@@ -1,0 +1,33 @@
+server:
+  port: 7979
+  servlet:
+    context-path: /billing-service
+spring:
+  application:
+    name: billing-service
+  datasource:
+    url: jdbc:postgresql://localhost:5434/demo?searchpath=billing_schema,public
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: billing_schema
+  liquibase:
+    enabled: true
+    change-log: "classpath:/changelog/db.changelog-master.xml"
+    default-schema: billing_schema
+springdoc:
+  writer-with-order-by-keys: true
+  api-docs:
+    path: /api-docs
+    groups:
+      enabled: true
+logging:
+  level:
+    com.example.billing: DEBUG

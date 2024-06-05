@@ -2,18 +2,33 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
+  #namespace: ubahhukob
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.default.svc.cluster.local:7999/auth-service/users/profile"
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.default.svc.cluster.local:7999/auth-service/login"
 spec:
   ingressClassName: nginx
   rules:
   - host: arch.homework
     http:
       paths:
-      - path: /demo-service
+      - path: /notification-service
         pathType: Prefix
         backend:
           service:
-            name: health-service
+            name: notification-service
             port:
-              number: 8000
+              number: 7978
+      - path: /billing-service
+        pathType: Prefix
+        backend:
+          service:
+            name: billing-service
+            port:
+              number: 7979
+      - path: /order-service
+        pathType: Prefix
+        backend:
+          service:
+            name: order-service
+            port:
+              number: 7976

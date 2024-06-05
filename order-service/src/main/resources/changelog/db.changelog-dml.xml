@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="add_products" author="e.ivannikov">
+        <insert tableName="products">
+            <column name="id">3d1361bd-35c1-479c-80ab-e8f771f826e0</column>
+            <column name="name">Апельсины</column>
+            <column name="price">100</column>
+        </insert>
+        <insert tableName="products">
+            <column name="id">222361bd-35c1-479c-80ab-e8f771f82222</column>
+            <column name="name">Мандарины</column>
+            <column name="price">150</column>
+        </insert>
+        <insert tableName="products">
+            <column name="id">444361bd-35c1-479c-80ab-e8f771f82444</column>
+            <column name="name">Сок яблочный</column>
+            <column name="price">250</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

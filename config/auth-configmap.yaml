@@ -2,12 +2,17 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: auth-app-config
+  namespace: ubahhukob
 data:
   application.yaml: |
     server:
       port: 7999
       servlet:
         context-path: /auth-service
+    app:
+      integration:
+        billing-service:
+          url: http://billing-service:7979/billing-service
     spring:
       application:
         name: auth

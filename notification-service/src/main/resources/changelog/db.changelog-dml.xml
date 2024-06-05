@@ -1,0 +1,18 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="notification_success" author="e.ivannikov">
+        <insert tableName="notification_templates">
+            <column name="id">d46e4a18-3eb6-4098-8556-803fbb23f970</column>
+            <column name="code">SUCCESS</column>
+            <column name="title">Оплата заказа</column>
+            <column name="message">Ваш заказ успешно оплачен</column>
+        </insert>
+        <insert tableName="notification_templates">
+            <column name="id">111e4a18-3eb6-4098-8556-803fbb23f111</column>
+            <column name="code">FAIL</column>
+            <column name="title">Оплата заказа</column>
+            <column name="message">Не удалось оплатить заказ. На вашем счету недостаточно средств</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

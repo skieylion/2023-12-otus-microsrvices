@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+  namespace: ubahhukob
+spec:
+  selector:
+    app: my-app-notification
+  ports:
+    - protocol: TCP
+      port: 7978
+      targetPort: 7978
+  type: ClusterIP

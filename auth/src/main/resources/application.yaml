@@ -2,6 +2,10 @@ server:
   port: 7999
   servlet:
     context-path: /auth-service
+app:
+  integration:
+    billing-service:
+      url: http://localhost:7979/billing-service
 spring:
   application:
     name: auth

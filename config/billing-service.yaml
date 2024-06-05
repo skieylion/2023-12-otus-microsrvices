@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing-service
+  namespace: ubahhukob
+spec:
+  selector:
+    app: my-app-billing
+  ports:
+    - protocol: TCP
+      port: 7979
+      targetPort: 7979
+  type: ClusterIP

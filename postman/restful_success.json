@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "6730fe74-9332-4c77-b28b-b16425f987bf",
+		"name": "restful success",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13122695"
+	},
+	"item": [
+		{
+			"name": "logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/auth-service/logout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth-service",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"{{igor}}\",\r\n    \"fullName\":\"Игорев Игорь Игоревич\",\r\n    \"email\":\"{{igor}}@mail.com\",\r\n    \"phone\":\"+7 999 999 99 99\",\r\n    \"password\":\"123\",\r\n\t\"roles\":[\"ADMIN\",\"USER\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/auth-service/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth-service",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get igor's id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Get igor id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"igorId\", jsonData.userId);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{igor}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/auth-service/users/{{igor}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"auth-service",
+						"users",
+						"{{igor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get igor's account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Get igor's account\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.userId).to.eql(pm.environment.get(\"igorId\"));\r",
+							"    pm.environment.set(\"igorAccountId\",jsonData.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{igor}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/billing-service/account/by-user/{{igorId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing-service",
+						"account",
+						"by-user",
+						"{{igorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add balance to igor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{igor}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/billing-service/accounts/{{igorAccountId}}?type=PAY_OFF&quantity=500",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing-service",
+						"accounts",
+						"{{igorAccountId}}"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "PAY_OFF"
+						},
+						{
+							"key": "quantity",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Order\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.paidFor).to.eql(true);\r",
+							"    pm.environment.set(\"igorOrderId\",jsonData.orderId);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "igor",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"{{igorId}}\",\r\n    \"products\":[\r\n        {\r\n            \"productId\":\"3d1361bd-35c1-479c-80ab-e8f771f826e0\",\r\n            \"quantity\":1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/order-service/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"order-service",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check igor's balance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Get igor's account\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.balance).to.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{igor}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/billing-service/account/by-user/{{igorId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"billing-service",
+						"account",
+						"by-user",
+						"{{igorId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check igor's notification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Get igor's account\", function () {\r",
+							"    var responseString = pm.response.text();\r",
+							"    pm.expect(responseString.includes(\"SUCCESS\")).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{igor}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/notification-service/notifications?user_id={{igorId}}&order_id={{igorOrderId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"notification-service",
+						"notifications"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "{{igorId}}"
+						},
+						{
+							"key": "order_id",
+							"value": "{{igorOrderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"if (!pm.environment.get(\"user1\")) {\r",
+					"    // Генерация случайного значения\r",
+					"    let randomValue = Math.floor(Math.random() * 1000);\r",
+					"    pm.environment.set(\"user1\", \"user1\"+randomValue);\r",
+					"}\r",
+					"if (!pm.environment.get(\"user2\")) {\r",
+					"    // Генерация случайного значения\r",
+					"    let randomValue = Math.floor(Math.random() * 1000);\r",
+					"    pm.environment.set(\"user2\", \"user2\"+randomValue);\r",
+					"}\r",
+					"if (!pm.environment.get(\"igor\")) {\r",
+					"    // Генерация случайного значения\r",
+					"    let randomValue = Math.floor(Math.random() * 1000);\r",
+					"    pm.environment.set(\"igor\", \"igor\"+randomValue);\r",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://arch.homework"
+		},
+		{
+			"key": "igor",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "igorId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "igorAccountId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "igorOrderId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

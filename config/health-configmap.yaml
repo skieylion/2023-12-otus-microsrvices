@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: health-app-config
+  namespace: ubahhukob
 data:
   application.yaml: |
     server:

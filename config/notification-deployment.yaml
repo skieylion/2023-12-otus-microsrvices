@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-deployment
+  namespace: ubahhukob
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-notification
+  template:
+    metadata:
+      labels:
+        app: my-app-notification
+    spec:   
+      containers:
+        - name: notification-app
+          image: ubahhukob/notification-service:v2
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+          args:
+            - "--spring.config.location=/config/application.yaml"
+            - "--spring.datasource.username=$(SPRING_DATASOURCE_USERNAME)"
+            - "--spring.datasource.password=$(SPRING_DATASOURCE_PASSWORD)"
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: health-secrets
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: health-secrets
+                  key: password
+          ports:
+          - containerPort: 7978
+          livenessProbe:
+            httpGet:
+              path: /notification-service/actuator/health
+              port: 7978
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /notification-service/actuator/info
+              port: 7978
+            initialDelaySeconds: 30
+            timeoutSeconds: 31
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+      volumes:
+        - name: config-volume
+          configMap:
+            name: notification-app-config

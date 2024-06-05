@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress-no-auth
+  #namespace: ubahhukob
 spec:
   ingressClassName: nginx
   rules:

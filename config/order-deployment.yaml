@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  namespace: ubahhukob
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-order
+  template:
+    metadata:
+      labels:
+        app: my-app-order
+    spec:   
+      containers:
+        - name: order-app
+          image: ubahhukob/order-service:v2
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+          args:
+            - "--spring.config.location=/config/application.yaml"
+            - "--spring.datasource.username=$(SPRING_DATASOURCE_USERNAME)"
+            - "--spring.datasource.password=$(SPRING_DATASOURCE_PASSWORD)"
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: health-secrets
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: health-secrets
+                  key: password
+          ports:
+          - containerPort: 7976
+          livenessProbe:
+            httpGet:
+              path: /order-service/actuator/health
+              port: 7976
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /order-service/actuator/info
+              port: 7976
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+      volumes:
+        - name: config-volume
+          configMap:
+            name: order-app-config
